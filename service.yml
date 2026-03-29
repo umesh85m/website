@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-service
+spec:
+  type: NodePort       # Exposes the service on a port on the worker machines
+  selector:
+    app: website       # Links this service to our deployment (same label)
+  ports:
+  - protocol: TCP
+    port: 80           # Port used inside the Kubernetes cluster
+    targetPort: 80     # Port inside the container (nginx listens on 80)
+    nodePort: 30008    # Port accessible from outside — open http://WORKER_IP:30008
